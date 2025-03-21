@@ -98,9 +98,15 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-def initialize_groq_client():
-    """Initialize and return Groq client"""
-    return Groq(api_key=os.environ.get("GROQ_API_KEY"))
+response = client.chat.completions.create(
+    model="gpt-3.5",  
+    messages=[
+        {"role": "system", "content": "You are an expert resume analyzer and career coach."},
+        {"role": "user", "content": prompt}
+    ],
+    temperature=0.7,
+    max_tokens=2000
+)
 
 def extract_text_from_pdf(pdf_file):
     """Extract text from uploaded PDF file"""
